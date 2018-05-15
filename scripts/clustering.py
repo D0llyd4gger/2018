@@ -29,9 +29,9 @@ from sklearn.cluster import SpectralClustering, KMeans, MeanShift, DBSCAN
 from sklearn.preprocessing import StandardScaler
 from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
 from sklearn.metrics.pairwise import euclidean_distances, cosine_distances, manhattan_distances
+from nltk.stem.porter import PorterStemmer
 
-from syllabs.sylkit.text.preproc.stem import Stemmer
-from syllabs.sylkit.text.preproc import stopword
+import stopwords
 
 
 class Clustering():
@@ -71,7 +71,7 @@ class Clustering():
             dtm (np.array): document-term matrix (shape n_documents, n_vocabulary)
             vocab (np.array): vocabulary used to buid the matrix
         """
-        lstopwords = stopword.STOPWORDS["french"] if self.stopwords else None
+        lstopwords = stopwords.STOPWORDS
 
         if self.stemming:
             data = self._stemming(sentences)
@@ -102,7 +102,7 @@ class Clustering():
         Returns:
             list : documents with stemmed tokens
         """
-        stemmer = Stemmer("french")
+        stemmer = PorterStemmer("french")
         newsents = []
         for sent in documents:
             newsent = [stemmer.stem(word) for word in sent.split()] 
