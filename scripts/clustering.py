@@ -29,7 +29,7 @@ from sklearn.cluster import SpectralClustering, KMeans, MeanShift, DBSCAN
 from sklearn.preprocessing import StandardScaler
 from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
 from sklearn.metrics.pairwise import euclidean_distances, cosine_distances, manhattan_distances
-from nltk.stem.porter import PorterStemmer
+from nltk.stem.snowball import SnowballStemmer
 
 import stopwords
 
@@ -102,7 +102,7 @@ class Clustering():
         Returns:
             list : documents with stemmed tokens
         """
-        stemmer = PorterStemmer("french")
+        stemmer = SnowballStemmer("french")
         newsents = []
         for sent in documents:
             newsent = [stemmer.stem(word) for word in sent.split()] 

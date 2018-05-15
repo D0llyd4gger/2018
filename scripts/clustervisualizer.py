@@ -26,7 +26,7 @@ class ClusterVisualizer():
         color = ''.join([random.choice('0123456789ABCDEF') for _ in range(6)])
         return "#"+color
 
-    def make_plot(self, distance_matrix, sentences, y_pred, output=None):
+    def make_plot(self, distance_matrix, sentences, y_pred, index, output=None):
         """Creates plot to visualize clusters
 
         Args:
@@ -46,12 +46,12 @@ class ClusterVisualizer():
         xs, ys = pos[:, 0], pos[:, 1]
 
         # labels : index of documents in list
-        names = [str(i) for i in range(len(sentences))]
+        names = [index[i] for i, sent in enumerate(sentences)]
 
         fig, ax = plt.subplots(figsize=(20, 10))
 
         colors = []
-        for _ in xrange(self.nbclusters):
+        for _ in range(self.nbclusters):
             colors.append(self._gen_color())
 
         for i, color in enumerate(colors):
